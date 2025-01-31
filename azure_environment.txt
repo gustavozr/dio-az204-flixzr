@@ -1,0 +1,30 @@
+az group create --name FLIXZR --location brazilsouth
+
+az apim create --name apim-flixzr  --resource-group FLIXZR --location brazilsouth --publisher-name "FlixZR" --publisher-email contato@flixzr.com --sku-name Consumption
+
+az cosmosdb create \
+    --name cosmosdbflixzrdev001 \
+    --resource-group FLIXZR \
+    --locations regionName=brazilsouth \
+    --capabilities EnableServerless \
+    --default-consistency-level Session
+
+az storage account create \
+    --name staflixzrdev001 \
+    --resource-group FLIXZR \
+    --location brazilsouth \
+    --sku Standard_LRS \
+    --kind StorageV2 \
+    --allow-blob-public-access true
+
+az storage container create \
+    --account-name staflixzrdev001 \
+    --name video \
+    --public-access blob \
+    --auth-mode login
+
+az storage container create \
+    --account-name staflixzrdev001 \
+    --name image \
+    --public-access blob \
+    --auth-mode login
